@@ -959,8 +959,8 @@ pub struct TrackedDevicePose_t {
     pub vVelocity: HmdVector3_t,
     pub vAngularVelocity: HmdVector3_t,
     pub eTrackingResult: ETrackingResult,
-    pub bPoseIsValid: ::std::os::raw::c_int,
-    pub bDeviceIsConnected: ::std::os::raw::c_int,
+    pub bPoseIsValid: ::std::os::raw::c_char,
+    pub bDeviceIsConnected: ::std::os::raw::c_char,
 }
 impl ::std::default::Default for TrackedDevicePose_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -1012,7 +1012,7 @@ impl ::std::default::Default for VREvent_Scroll_t {
 #[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct VREvent_TouchPadMove_t {
-    pub bFingerDown: ::std::os::raw::c_int,
+    pub bFingerDown: ::std::os::raw::c_char,
     pub flSecondsFingerDown: ::std::os::raw::c_float,
     pub fValueXFirst: ::std::os::raw::c_float,
     pub fValueYFirst: ::std::os::raw::c_float,
@@ -1039,7 +1039,7 @@ impl ::std::default::Default for VREvent_Notification_t {
 pub struct VREvent_Process_t {
     pub pid: uint32_t,
     pub oldPid: uint32_t,
-    pub bForced: ::std::os::raw::c_int,
+    pub bForced: ::std::os::raw::c_char,
 }
 impl ::std::default::Default for VREvent_Process_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -1114,7 +1114,7 @@ impl ::std::default::Default for VREvent_PerformanceTest_t {
 #[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct VREvent_SeatedZeroPoseReset_t {
-    pub bResetBySystemMenu: ::std::os::raw::c_int,
+    pub bResetBySystemMenu: ::std::os::raw::c_char,
 }
 impl ::std::default::Default for VREvent_SeatedZeroPoseReset_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -1335,7 +1335,7 @@ impl ::std::default::Default for RenderModel_t {
 #[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct RenderModel_ControllerMode_State_t {
-    pub bScrollWheelVisible: ::std::os::raw::c_int,
+    pub bScrollWheelVisible: ::std::os::raw::c_char,
 }
 impl ::std::default::Default for RenderModel_ControllerMode_State_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -1501,11 +1501,11 @@ pub struct VR_IVRSystem_FnTable {
                                                                           *mut int32_t)>,
     pub IsDisplayOnDesktop: ::std::option::Option<extern "C" fn()
                                                       ->
-                                                          ::std::os::raw::c_int>,
+                                                          ::std::os::raw::c_char>,
     pub SetDisplayVisibility: ::std::option::Option<extern "C" fn(bIsVisibleOnDesktop:
-                                                                      ::std::os::raw::c_int)
+                                                                      ::std::os::raw::c_char)
                                                         ->
-                                                            ::std::os::raw::c_int>,
+                                                            ::std::os::raw::c_char>,
     pub GetDeviceToAbsoluteTrackingPose: ::std::option::Option<unsafe extern "C" fn(eOrigin:
                                                                                         ETrackingUniverseOrigin,
                                                                                     fPredictedSecondsToPhotonsFromNow:
@@ -1556,7 +1556,7 @@ pub struct VR_IVRSystem_FnTable {
     pub IsTrackedDeviceConnected: ::std::option::Option<extern "C" fn(unDeviceIndex:
                                                                           TrackedDeviceIndex_t)
                                                             ->
-                                                                ::std::os::raw::c_int>,
+                                                                ::std::os::raw::c_char>,
     pub GetBoolTrackedDeviceProperty: ::std::option::Option<unsafe extern "C" fn(unDeviceIndex:
                                                                                      TrackedDeviceIndex_t,
                                                                                  prop:
@@ -1564,7 +1564,7 @@ pub struct VR_IVRSystem_FnTable {
                                                                                  pError:
                                                                                      *mut ETrackedPropertyError)
                                                                 ->
-                                                                    ::std::os::raw::c_int>,
+                                                                    ::std::os::raw::c_char>,
     pub GetFloatTrackedDeviceProperty: ::std::option::Option<unsafe extern "C" fn(unDeviceIndex:
                                                                                       TrackedDeviceIndex_t,
                                                                                   prop:
@@ -1918,7 +1918,7 @@ pub struct VR_IVRApplications_FnTable {
                                                                                   *mut ::std::os::raw::c_char>,
     pub IsQuitUserPromptRequested: ::std::option::Option<extern "C" fn()
                                                              ->
-                                                                 ::std::os::raw::c_int>,
+                                                                 ::std::os::raw::c_char>,
     pub LaunchInternalProcess: ::std::option::Option<unsafe extern "C" fn(pchBinaryPath:
                                                                               *mut ::std::os::raw::c_char,
                                                                           pchArguments:
@@ -1958,9 +1958,9 @@ pub struct VR_IVRChaperone_FnTable {
                                                                    pOutputCameraColor:
                                                                        *mut HmdColor_t)>,
     pub AreBoundsVisible: ::std::option::Option<extern "C" fn()
-                                                    -> ::std::os::raw::c_int>,
+                                                    -> ::std::os::raw::c_char>,
     pub ForceBoundsVisible: ::std::option::Option<extern "C" fn(bForce:
-                                                                    ::std::os::raw::c_int)>,
+                                                                    ::std::os::raw::c_char)>,
 }
 impl ::std::default::Default for VR_IVRChaperone_FnTable {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -2143,27 +2143,27 @@ pub struct VR_IVRCompositor_FnTable {
     pub CompositorGoToBack: ::std::option::Option<extern "C" fn()>,
     pub CompositorQuit: ::std::option::Option<extern "C" fn()>,
     pub IsFullscreen: ::std::option::Option<extern "C" fn()
-                                                -> ::std::os::raw::c_int>,
+                                                -> ::std::os::raw::c_char>,
     pub GetCurrentSceneFocusProcess: ::std::option::Option<extern "C" fn()
                                                                -> uint32_t>,
     pub GetLastFrameRenderer: ::std::option::Option<extern "C" fn()
                                                         -> uint32_t>,
     pub CanRenderScene: ::std::option::Option<extern "C" fn()
-                                                  -> ::std::os::raw::c_int>,
+                                                  -> ::std::os::raw::c_char>,
     pub ShowMirrorWindow: ::std::option::Option<extern "C" fn()>,
     pub HideMirrorWindow: ::std::option::Option<extern "C" fn()>,
     pub IsMirrorWindowVisible: ::std::option::Option<extern "C" fn()
                                                          ->
-                                                             ::std::os::raw::c_int>,
+                                                             ::std::os::raw::c_char>,
     pub CompositorDumpImages: ::std::option::Option<extern "C" fn()>,
     pub ShouldAppRenderWithLowResources: ::std::option::Option<extern "C" fn()
                                                                    ->
-                                                                       ::std::os::raw::c_int>,
+                                                                       ::std::os::raw::c_char>,
     pub ForceInterleavedReprojectionOn: ::std::option::Option<extern "C" fn(bOverride:
-                                                                                ::std::os::raw::c_int)>,
+                                                                                ::std::os::raw::c_char)>,
     pub ForceReconnectProcess: ::std::option::Option<extern "C" fn()>,
     pub SuspendRendering: ::std::option::Option<extern "C" fn(bSuspend:
-                                                                  ::std::os::raw::c_int)>,
+                                                                  ::std::os::raw::c_char)>,
     pub RequestScreenshot: ::std::option::Option<unsafe extern "C" fn(type_:
                                                                           EVRScreenshotType,
                                                                       pchDestinationFileName:
@@ -2427,7 +2427,7 @@ pub struct VR_IVROverlay_FnTable {
                                                -> EVROverlayError>,
     pub IsOverlayVisible: ::std::option::Option<extern "C" fn(ulOverlayHandle:
                                                                   VROverlayHandle_t)
-                                                    -> ::std::os::raw::c_int>,
+                                                    -> ::std::os::raw::c_char>,
     pub GetTransformForOverlayCoordinates: ::std::option::Option<unsafe extern "C" fn(ulOverlayHandle:
                                                                                           VROverlayHandle_t,
                                                                                       eTrackingOrigin:
@@ -2568,11 +2568,11 @@ pub struct VR_IVROverlay_FnTable {
                                                           -> EVROverlayError>,
     pub IsDashboardVisible: ::std::option::Option<extern "C" fn()
                                                       ->
-                                                          ::std::os::raw::c_int>,
+                                                          ::std::os::raw::c_char>,
     pub IsActiveDashboardOverlay: ::std::option::Option<extern "C" fn(ulOverlayHandle:
                                                                           VROverlayHandle_t)
                                                             ->
-                                                                ::std::os::raw::c_int>,
+                                                                ::std::os::raw::c_char>,
     pub SetDashboardOverlaySceneProcess: ::std::option::Option<extern "C" fn(ulOverlayHandle:
                                                                                  VROverlayHandle_t,
                                                                              unProcessId:
@@ -2601,7 +2601,7 @@ pub struct VR_IVROverlay_FnTable {
                                                                  pchExistingText:
                                                                      *mut ::std::os::raw::c_char,
                                                                  bUseMinimalMode:
-                                                                     ::std::os::raw::c_int,
+                                                                     ::std::os::raw::c_char,
                                                                  uUserValue:
                                                                      uint64_t)
                                                 -> EVROverlayError>,
@@ -2618,7 +2618,7 @@ pub struct VR_IVROverlay_FnTable {
                                                                            pchExistingText:
                                                                                *mut ::std::os::raw::c_char,
                                                                            bUseMinimalMode:
-                                                                               ::std::os::raw::c_int,
+                                                                               ::std::os::raw::c_char,
                                                                            uUserValue:
                                                                                uint64_t)
                                                           -> EVROverlayError>,
@@ -2727,7 +2727,7 @@ pub struct VR_IVRRenderModels_FnTable {
                                                                             pchComponentName:
                                                                                 *mut ::std::os::raw::c_char)
                                                            ->
-                                                               ::std::os::raw::c_int>,
+                                                               ::std::os::raw::c_char>,
     pub GetRenderModelThumbnailURL: ::std::option::Option<unsafe extern "C" fn(pchRenderModelName:
                                                                                    *mut ::std::os::raw::c_char,
                                                                                pchThumbnailURL:
@@ -2800,16 +2800,16 @@ pub struct VR_IVRSettings_FnTable {
                                                             pchSettingsKey:
                                                                 *mut ::std::os::raw::c_char,
                                                             bDefaultValue:
-                                                                ::std::os::raw::c_int,
+                                                                ::std::os::raw::c_char,
                                                             peError:
                                                                 *mut EVRSettingsError)
-                                           -> ::std::os::raw::c_int>,
+                                           -> ::std::os::raw::c_char>,
     pub SetBool: ::std::option::Option<unsafe extern "C" fn(pchSection:
                                                                 *mut ::std::os::raw::c_char,
                                                             pchSettingsKey:
                                                                 *mut ::std::os::raw::c_char,
                                                             bValue:
-                                                                ::std::os::raw::c_int,
+                                                                ::std::os::raw::c_char,
                                                             peError:
                                                                 *mut EVRSettingsError)>,
     pub GetInt32: ::std::option::Option<unsafe extern "C" fn(pchSection:
